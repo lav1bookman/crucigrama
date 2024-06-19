@@ -4,67 +4,45 @@ package org.example;
 // elementos de la aplicación.
 import javafx.application.Application;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox; // Asegúrate de importar ChoiceBox desde javafx.scene.control
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.util.HashMap;
+import java.util.Map;
+
 // Clase Crucigrama: Extiende Application de JavaFX, lo que permite construir una interfaz gráfica con el método start.
 public class Crucigrama extends Application {
 
+    private Map<TextField, int[]> textFieldPositions = new HashMap<>();
     // Definición de crucigramas y matrices de ocultación
-    private static String[][] crucigrama1 = {
-            {"I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"},
-            {"X", "XI", "XII", "XIII", "XIV", "XV", "XVI", "XVII", "XVIII"},
-            {"XIX", "XX", "XXI", "XXII", "XXIII", "XXIV", "XXV", "XXVI", "XXVII"},
-            {"XXVIII", "XXIX", "XXX", "XXXI", "XXXII", "XXXIII", "XXXIV", "XXXV", "XXXVI"},
-            {"XXXVII", "XXXVIII", "XXXIX", "XL", "XLI", "XLII", "XLIII", "XLIV", "XLV"},
-            {"XLVI", "XLVII", "XLVIII", "XLIX", "L", "LI", "LII", "LIII", "LIV"},
-            {"LV", "LVI", "LVII", "LVIII", "LIX", "LX", "LXI", "LXII", "LXIII"},
-            {"LXIV", "LXV", "LXVI", "LXVII", "LXVIII", "LXIX", "LXX", "LXXI", "LXXII"},
-            {"LXXIII", "LXXIV", "LXXV", "LXXVI", "LXXVII", "LXXVIII", "LXXIX", "LXXX", "LXXXI"}
+
+    private static Object[][] crucigrama1 = {
+            {"&", false}, {"&", false}, {"&", false}, {"&", false}, {"&", false}, {"I", true}, {"&", false}, {"&", false}, {"&", false},
+            {"&", false}, {"&", false}, {"&", false}, {"&", false}, {"&", false}, {"I", false}, {"XVI", false}, {"XVII", false}, {"XVIII", false},
+            {"XIX", false}, {"*", false}, {"XXI", false}, {"x", false}, {"XXIII", false}, {"XXIV", false}, {"XXV", false}, {"XXVI", false}, {"XXVII", false},
+            {"XXVIII", false}, {"*", false}, {"XXX", false}, {"=", false}, {"XXXII", false}, {"XXXIII", false}, {"XXXIV", false}, {"XXXV", false}, {"XXXVI", false},
+            {"XXXVII", false}, {"*", false}, {"XXXIX", false}, {"XX", false}, {"XLI", false}, {"XLII", false}, {"XLIII", false}, {"XLIV", false}, {"XLV", false},
+            {"XLVI", false}, {"", false}, {"XLVIII", false}, {"", false}, {"L", false}, {"I", true}, {"LII", false}, {"LIII", false}, {"LIV", false},
+            {"LV", false}, {"LVI", false}, {"LVII", false}, {"*", false}, {"LIX", false}, {"LX", false}, {"LXI", false}, {"I", true}, {"LXIII", false},
+            {"LXIV", false}, {"LXV", false}, {"LXVI", false}, {"LXVII", false}, {"LXVIII", false}, {"LXIX", false}, {"LXX", false}, {"LXXI", false}, {"I", true},
+            {"LXXIII", false}, {"LXXIV", false}, {"LXXV", false}, {"LXXVI", false}, {"LXXVII", false}, {"LXXVIII", false}, {"LXXIX", false}, {"LXXX", false}, {"LXXXI", false}
     };
 
-    private static boolean[][] ocultas1 = {
-            {false, false, true, false, false, false, false, false, false},
-            {false, false, false, false, false, false, false, false, false},
-            {false, false, false, false, false, false, false, false, false},
-            {false, false, false, false, false, false, false, false, false},
-            {false, false, false, false, false, false, false, false, false},
-            {false, false, false, true, false, true, false, false, false},
-            {false, false, false, false, false, false, false, true, false},
-            {false, false, false, false, false, false, false, false, true},
-            {false, false, false, false, false, false, false, false, false}
+    private static Object[][] crucigrama2 = {
+            {"LXXXII", true}, {"LXXXIII", false}, {"LXXXIV", false}, {"LXXXV", false}, {"LXXXVI", false}, {"LXXXVII", false}, {"LXXXVIII", false}, {"LXXXIX", false}, {"XC", false},
+            {"XCI", false}, {"XCII", false}, {"XCIII", true}, {"XCIV", false}, {"XCV", false}, {"XCVI", false}, {"XCVII", false}, {"XCVIII", false}, {"XCIX", false},
+            {"C", false}, {"CI", false}, {"CII", false}, {"CIII", false}, {"CIV", false}, {"CV", false}, {"CVI", false}, {"CVII", false}, {"CVIII", false},
+            {"CIX", false}, {"CX", false}, {"CXI", false}, {"CXII", false}, {"CXIII", false}, {"CXIV", false}, {"CXV", false}, {"CXVI", false}, {"CXVII", false},
+            {"CXVIII", false}, {"CXIX", false}, {"CXX", false}, {"CXXI", false}, {"CXXII", false}, {"CXXIII", false}, {"CXXIV", true}, {"CXXV", false}, {"CXXVI", false},
+            {"CXXVII", false}, {"CXXVIII", false}, {"CXXIX", false}, {"CXXX", false}, {"CXXXI", false}, {"CXXXII", false}, {"CXXXIII", false}, {"CXXXIV", false}, {"CXXXV", false},
+            {"CXXXVI", false}, {"CXXXVII", false}, {"CXXXVIII", false}, {"CXXXIX", false}, {"CXL", false}, {"CXLI", false}, {"CXLII", false}, {"CXLIII", false}, {"CXLIV", false},
+            {"CXLV", false}, {"CXLVI", false}, {"CXLVII", false}, {"CXLVIII", false}, {"CXLIX", false}, {"CL", false}, {"CLI", false}, {"CLII", false}, {"CLIII", false},
+            {"CLIV", false}, {"CLV", false}, {"CLVI", false}, {"CLVII", false}, {"CLVIII", false}, {"CLIX", false}, {"CLX", false}, {"CLXI", false}, {"CLXII", false}
     };
-
-    private static String[][] crucigrama2 = {
-            {"LXXXII", "LXXXIII", "LXXXIV", "LXXXV", "LXXXVI", "LXXXVII", "LXXXVIII", "LXXXIX", "XC"},
-            {"XCI", "XCII", "XCIII", "XCIV", "XCV", "XCVI", "XCVII", "XCVIII", "XCIX"},
-            {"C", "CI", "CII", "CIII", "CIV", "CV", "CVI", "CVII", "CVIII"},
-            {"CIX", "CX", "CXI", "CXII", "CXIII", "CXIV", "CXV", "CXVI", "CXVII"},
-            {"CXVIII", "CXIX", "CXX", "CXXI", "CXXII", "CXXIII", "CXXIV", "CXXV", "CXXVI"},
-            {"CXXVII", "CXXVIII", "CXXIX", "CXXX", "CXXXI", "CXXXII", "CXXXIII", "CXXXIV", "CXXXV"},
-            {"CXXXVI", "CXXXVII", "CXXXVIII", "CXXXIX", "CXL", "CXLI", "CXLII", "CXLIII", "CXLIV"},
-            {"CXLV", "CXLVI", "CXLVII", "CXLVIII", "CXLIX", "CL", "CLI", "CLII", "CLIII"},
-            {"CLIV", "CLV", "CLVI", "CLVII", "CLVIII", "CLIX", "CLX", "CLXI", "CLXII"}
-    };
-
-    private static boolean[][] ocultas2 = {
-            {true, false, false, false, false, false, false, false, false},
-            {false, false, true, false, false, false, false, false, false},
-            {false, false, false, false, false, false, false, false, false},
-            {false, false, false, false, false, false, false, false, false},
-            {false, false, false, false, false, false, true, false, false},
-            {false, false, false, false, false, false, false, false, false},
-            {false, false, false, false, false, false, false, false, false},
-            {false, false, false, false, false, false, false, false, false},
-            {false, false, false, false, false, false, false, false, false}
-    };
+    private Object[][] currentCrucigrama;
 
     // Inicia la aplicación JavaFX llamando al método launch
     public static void main(String[] args) {
@@ -90,21 +68,16 @@ public class Crucigrama extends Application {
         choiceBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             root.getChildren().clear(); // Limpiar el GridPane anterior
             if (newValue.equals("Crucigrama 1")) {
-                crearCrucigrama(root, crucigrama1, ocultas1);
+                currentCrucigrama = crucigrama1;
             } else if (newValue.equals("Crucigrama 2")) {
-                crearCrucigrama(root, crucigrama2, ocultas2);
+                currentCrucigrama = crucigrama2;
             }
+            crearCrucigrama(root, currentCrucigrama);
         });
 
         // Botón de verificación
         Button verificarButton = new Button("Verificar");
-        verificarButton.setOnAction(event -> {
-            if (choiceBox.getValue().equals("Crucigrama 1")) {
-                verificarRespuestasParaCrucigrama(root, crucigrama1, ocultas1);
-            } else if (choiceBox.getValue().equals("Crucigrama 2")) {
-                verificarRespuestasParaCrucigrama(root, crucigrama2, ocultas2);
-            }
-        });
+        verificarButton.setOnAction(e -> verificarRespuestas());
 
         // Contenedor para el botón y el choiceBox
         VBox vbox = new VBox(10);
@@ -120,66 +93,63 @@ public class Crucigrama extends Application {
     // Método auxiliar para crear un crucigrama en el GridPane dado
     // Este método construye dinámicamente el crucigrama seleccionado en el GridPane. Crea TextField para las
     // celdas ocultas y Label para las letras visibles.
-    private void crearCrucigrama(GridPane root, String[][] crucigrama, boolean[][] ocultas) {
-        for (int i = 0; i < crucigrama.length; i++) {
-            for (int j = 0; j < crucigrama[i].length; j++) {
-                if (ocultas[i][j]) {
+    private void crearCrucigrama(GridPane root, Object[][] crucigrama) {
+        textFieldPositions.clear();
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                String valor = (String) crucigrama[i * 9 + j][0];
+                boolean oculto = (boolean) crucigrama[i * 9 + j][1];
+                if (oculto) {
                     TextField textField = new TextField();
                     textField.setPrefWidth(50);
                     textField.setAlignment(Pos.CENTER);
                     root.add(textField, j, i);
+                    textFieldPositions.put(textField, new int[]{i, j});
                 } else {
-                    Label label = new Label(crucigrama[i][j]);
+                    Label label = new Label(valor);
                     label.setStyle("-fx-background-color: lightgray; -fx-border-color: black;");
                     label.setPrefSize(50, 50);
                     label.setAlignment(Pos.CENTER);
-                    root.add(label, j, i);
+                    if (!valor.equals("&")) root.add(label, j, i);
+
+
                 }
             }
         }
     }
 
-    // Método para verificar las respuestas ingresadas por el usuario
-    private void verificarRespuestas(GridPane root, String[][] crucigrama1, boolean[][] ocultas1, String[][] crucigrama2, boolean[][] ocultas2) {
-        verificarRespuestasParaCrucigrama(root, crucigrama1, ocultas1);
-        verificarRespuestasParaCrucigrama(root, crucigrama2, ocultas2);
-    }
 
     // Este método verifica las respuestas ingresadas por el usuario comparando las letras ingresadas en los TextField
     // con las letras correctas del crucigrama. Cambia el color de fondo del TextField según si la respuesta es
     // correcta o incorrecta.
-    private void verificarRespuestasParaCrucigrama(GridPane root, String[][] crucigrama, boolean[][] ocultas) {
-        for (int i = 0; i < crucigrama.length; i++) {
-            for (int j = 0; j < crucigrama[i].length; j++) {
-                if (ocultas[i][j]) {
-                    TextField textField = (TextField) getNodeFromGridPane(root, j, i);
-                    if (textField != null) {
-                        String valor = textField.getText().trim();
-                        if (!valor.isEmpty()) {
-                            String respuestaAdivinada = valor;
-                            String respuestaCorrecta = crucigrama[i][j];
-                            if (respuestaAdivinada.equals(respuestaCorrecta)) {
-                                ocultas[i][j] = false; // Revelar la letra en la matriz
-                                textField.setStyle("-fx-background-color: lightgreen;");
-                            } else {
-                                textField.setStyle("-fx-background-color: salmon;");
-                            }
-                        }
-                    }
-                }
+    private void verificarRespuestas() {
+        boolean allCorrect = true;
+        for (Map.Entry<TextField, int[]> entry : textFieldPositions.entrySet()) {
+            TextField textField = entry.getKey();
+            int[] position = entry.getValue();
+            String expectedValue = (String) currentCrucigrama[position[0] * 9 + position[1]][0];
+            String userInput = textField.getText();
+
+            if (!expectedValue.equals(userInput)) {
+                textField.setStyle("-fx-background-color: red;");
+                allCorrect = false;
+            } else {
+                textField.setStyle("-fx-background-color: lightgreen;");
             }
+        }
+        if (allCorrect) {
+            showAlert("¡FELICITACIONES Todas las respuestas son correctas!");
+        } else {
+            showAlert("Algunas respuestas son incorrectas. Inténtalo de nuevo.");
         }
     }
 
-    // Método auxiliar para obtener un nodo específico desde un GridPane
-    // Este método auxiliar busca y devuelve un nodo específico (en este caso, un TextField o Label) dentro del
-    // GridPane dadas las coordenadas de columna y fila.
-    private Node getNodeFromGridPane(GridPane gridPane, int col, int row) {
-        for (Node node : gridPane.getChildren()) {
-            if (GridPane.getColumnIndex(node) == col && GridPane.getRowIndex(node) == row) {
-                return node;
-            }
-        }
-        return null;
+    // Método auxiliar para mostrar un cuadro de diálogo emergente con un mensaje
+    private void showAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Resultado");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }
