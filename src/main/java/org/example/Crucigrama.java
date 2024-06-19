@@ -20,27 +20,27 @@ public class Crucigrama extends Application {
     // Definición de crucigramas y matrices de ocultación
 
     private static Object[][] crucigrama1 = {
-            {"&", false}, {"&", false}, {"&", false}, {"&", false}, {"&", false}, {"I", true}, {"&", false}, {"&", false}, {"&", false},
-            {"&", false}, {"&", false}, {"&", false}, {"&", false}, {"&", false}, {"I", false}, {"XVI", false}, {"XVII", false}, {"XVIII", false},
-            {"XIX", false}, {"*", false}, {"XXI", false}, {"x", false}, {"XXIII", false}, {"XXIV", false}, {"XXV", false}, {"XXVI", false}, {"XXVII", false},
-            {"XXVIII", false}, {"*", false}, {"XXX", false}, {"=", false}, {"XXXII", false}, {"XXXIII", false}, {"XXXIV", false}, {"XXXV", false}, {"XXXVI", false},
-            {"XXXVII", false}, {"*", false}, {"XXXIX", false}, {"XX", false}, {"XLI", false}, {"XLII", false}, {"XLIII", false}, {"XLIV", false}, {"XLV", false},
-            {"XLVI", false}, {"", false}, {"XLVIII", false}, {"", false}, {"L", false}, {"I", true}, {"LII", false}, {"LIII", false}, {"LIV", false},
-            {"LV", false}, {"LVI", false}, {"LVII", false}, {"*", false}, {"LIX", false}, {"LX", false}, {"LXI", false}, {"I", true}, {"LXIII", false},
-            {"LXIV", false}, {"LXV", false}, {"LXVI", false}, {"LXVII", false}, {"LXVIII", false}, {"LXIX", false}, {"LXX", false}, {"LXXI", false}, {"I", true},
-            {"LXXIII", false}, {"LXXIV", false}, {"LXXV", false}, {"LXXVI", false}, {"LXXVII", false}, {"LXXVIII", false}, {"LXXIX", false}, {"LXXX", false}, {"LXXXI", false}
+            {"&", false}, {"XIV", false}, {"-", false}, {"VI", true}, {"=", false}, {"VIII", false}, {"&", false}, {"&", false}, {"&", false},
+            {"VIII", false}, {"&", false}, {"VII", false}, {"&", false}, {"V", false}, {"*", true}, {"IV", false}, {"=", false}, {"XX", false},
+            {"+", false}, {"&", false}, {"+", false}, {"&", false}, {"&", false}, {"-", false}, {"&", false}, {"&", false}, {"-", true},
+            {"XV", true}, {"&", false}, {"X", true}, {"&", false}, {"&", false}, {"-", false}, {"&", false}, {"&", false}, {"IV", false},
+            {"-", false}, {"&", false}, {"=", false}, {"VI", false}, {"&", false}, {"VI", false}, {"&", false}, {"&", false}, {"-", true},
+            {"IX", false}, {"-", false}, {"III", true}, {"+", false}, {"V", false}, {"=", false}, {"XI", false}, {"&", false}, {"VII", false},
+            {"=", false}, {"&", false}, {"&", false}, {"VI", true}, {"&", false}, {"X", true}, {"&", false}, {"&", false}, {"=", false},
+            {"XIV", false}, {"&", false}, {"&", false}, {"=", false}, {"&", false}, {"&", false}, {"&", false}, {"&", false}, {"IX", false},
+            {"&", false}, {"&", false}, {"&", false}, {"VII", false}, {"&", false}, {"&", false}, {"&", false}, {"&", false}, {"&", false}
     };
 
     private static Object[][] crucigrama2 = {
-            {"LXXXII", true}, {"LXXXIII", false}, {"LXXXIV", false}, {"LXXXV", false}, {"LXXXVI", false}, {"LXXXVII", false}, {"LXXXVIII", false}, {"LXXXIX", false}, {"XC", false},
-            {"XCI", false}, {"XCII", false}, {"XCIII", true}, {"XCIV", false}, {"XCV", false}, {"XCVI", false}, {"XCVII", false}, {"XCVIII", false}, {"XCIX", false},
-            {"C", false}, {"CI", false}, {"CII", false}, {"CIII", false}, {"CIV", false}, {"CV", false}, {"CVI", false}, {"CVII", false}, {"CVIII", false},
-            {"CIX", false}, {"CX", false}, {"CXI", false}, {"CXII", false}, {"CXIII", false}, {"CXIV", false}, {"CXV", false}, {"CXVI", false}, {"CXVII", false},
-            {"CXVIII", false}, {"CXIX", false}, {"CXX", false}, {"CXXI", false}, {"CXXII", false}, {"CXXIII", false}, {"CXXIV", true}, {"CXXV", false}, {"CXXVI", false},
-            {"CXXVII", false}, {"CXXVIII", false}, {"CXXIX", false}, {"CXXX", false}, {"CXXXI", false}, {"CXXXII", false}, {"CXXXIII", false}, {"CXXXIV", false}, {"CXXXV", false},
-            {"CXXXVI", false}, {"CXXXVII", false}, {"CXXXVIII", false}, {"CXXXIX", false}, {"CXL", false}, {"CXLI", false}, {"CXLII", false}, {"CXLIII", false}, {"CXLIV", false},
-            {"CXLV", false}, {"CXLVI", false}, {"CXLVII", false}, {"CXLVIII", false}, {"CXLIX", false}, {"CL", false}, {"CLI", false}, {"CLII", false}, {"CLIII", false},
-            {"CLIV", false}, {"CLV", false}, {"CLVI", false}, {"CLVII", false}, {"CLVIII", false}, {"CLIX", false}, {"CLX", false}, {"CLXI", false}, {"CLXII", false}
+            {"VII", false}, {"&", false}, {"&", false}, {"&", false}, {"v", false}, {"*", false}, {"III", false}, {"=", false}, {"XV", true},
+            {"*", false}, {"&", false}, {"&", false}, {"&", false}, {"+", true}, {"&", false}, {"*", false}, {"&", false}, {"*", false},
+            {"IV", true}, {"+", false}, {"III", false}, {"=", false}, {"VII", false}, {"&", false}, {"IV", false}, {"&", false}, {"II", false},
+            {"=", false}, {"&", false}, {"*", false}, {"&", false}, {"-", false}, {"&", false}, {"=", false}, {"&", false}, {"-", false},
+            {"XXVIII", false}, {"&", false}, {"III", false}, {"&", false}, {"IV", false}, {"&", false}, {"XII", true}, {"&", false}, {"XIII", false},
+            {"&", false}, {"XIV", false}, {"-", true}, {"IV", false}, {"=", false}, {"X", false}, {"&", false}, {"&", false}, {"-", true},
+            {"&", false}, {"&", false}, {"II", false}, {"&", false}, {"VIII", false}, {"&", false}, {"&", false}, {"&", false}, {"VIII", false},
+            {"&", false}, {"&", false}, {"=", false}, {"&", false}, {"&", false}, {"&", false}, {"&", false}, {"&", false}, {"=", true},
+            {"II", true}, {"+", false}, {"VII", true}, {"=", false}, {"IX", false}, {"&", false}, {"&", false}, {"&", false}, {"IX", false}
     };
     private Object[][] currentCrucigrama;
 
