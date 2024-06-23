@@ -80,7 +80,7 @@ public class CrucigramaTest {
 
 
 
-//verificar la funcionalidad del método crearCrucigrama//
+//Prueba 2: verificar la funcionalidad del método crearCrucigrama//
 
 
 package org.example;
@@ -130,7 +130,7 @@ public class CrucigramaTest {
 
 
 
-//verificar el funcionamiento del método start//
+//Prueba 3: verificar el funcionamiento del método start//
 package org.example;
 
 import javafx.scene.control.Button;
@@ -219,7 +219,7 @@ public class CrucigramaTest {
 
 
 
-//prueba unitaria para la clase Crucigrama método verificarRespuestas - actualización los estilos de los TextField//
+//Prueba 4: prueba unitaria para la clase Crucigrama método verificarRespuestas - actualización los estilos de los TextField//
 
 package org.example;
 
