@@ -1,0 +1,45 @@
+//Prueba 2: verificar la funcionalidad del método crearCrucigrama//
+
+
+package org.example;
+
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
+
+public class CrucigramaTest {
+
+    private Crucigrama crucigrama;
+
+    @BeforeEach
+    public void setUp() {
+        crucigrama = new Crucigrama();
+        // Inicializar JavaFX Toolkit (necesario para pruebas de GUI)
+        javafx.embed.swing.JFXPanel jfxPanel = new javafx.embed.swing.JFXPanel();
+    }
+
+    @Test
+    public void testCrearCrucigrama() {
+        // Mock del GridPane
+        GridPane mockGridPane = Mockito.mock(GridPane.class);
+
+        // Mock del crucigrama
+        Object[][] mockCrucigrama = {
+                {"A", false}, {"B", true}, {"C", false},
+                {"D", false}, {"E", true}, {"F", false},
+        };
+
+        // Llamar al método crearCrucigrama
+        crucigrama.crearCrucigrama(mockGridPane, mockCrucigrama);
+
+        // Verificar que se agregaron los componentes correctos al GridPane
+        verify(mockGridPane, times(6)).add(any(Label.class), anyInt(), anyInt()); // Se agregan Labels visibles
+        verify(mockGridPane, times(2)).add(any(TextField.class), anyInt(), anyInt()); // Se agregan TextFields ocultos
+    }
+}
