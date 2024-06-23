@@ -1,0 +1,90 @@
+//Prueba 4: prueba unitaria para la clase Crucigrama método verificarRespuestas - actualización los estilos de los TextField//
+
+package org.example;
+
+import javafx.scene.control.Alert;
+import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Mockito;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
+
+public class CrucigramaTest {
+
+    private Crucigrama crucigrama;
+    private Stage mockStage;
+
+    @BeforeEach
+    public void setUp() {
+        crucigrama = new Crucigrama();
+        mockStage = Mockito.mock(Stage.class);
+
+        // Inicializar JavaFX Toolkit (necesario para pruebas de GUI)
+        javafx.embed.swing.JFXPanel jfxPanel = new javafx.embed.swing.JFXPanel();
+    }
+
+    @Test
+    public void testVerificarRespuestas_Correctas() {
+        // Mock de TextField
+        TextField mockTextField1 = Mockito.mock(TextField.class);
+        when(mockTextField1.getText()).thenReturn("A");
+        when(mockTextField1.getStyle()).thenReturn("");
+
+        // Mock de crucigrama actual
+        Object[][] mockCrucigrama = {
+                {"A", false},
+                {"B", true},
+        };
+        crucigrama.setCurrentCrucigrama(mockCrucigrama);
+
+        // Agregar mockTextField1 al mapa de posiciones
+        crucigrama.getTextFieldPositions().put(mockTextField1, new int[]{0, 0});
+
+        // Llamar al método verificarRespuestas()
+        crucigrama.verificarRespuestas();
+
+        // Verificar que el estilo de mockTextField1 sea lightgreen
+        verify(mockTextField1).setStyle("-fx-background-color: lightgreen;");
+
+        // Verificar que se muestra una alerta de respuestas correctas
+        ArgumentCaptor<String> argument = ArgumentCaptor.forClass(String.class);
+        verify(crucigrama).showAlert(argument.capture());
+        assertTrue(argument.getValue().contains("¡FELICITACIONES Todas las respuestas son correctas!"));
+    }
+
+    @Test
+    public void testVerificarRespuestas_Incorrectas() {
+        // Mock de TextField
+        TextField mockTextField1 = Mockito.mock(TextField.class);
+        when(mockTextField1.getText()).thenReturn("A");
+        when(mockTextField1.getStyle()).thenReturn("");
+
+        // Mock de crucigrama actual
+        Object[][] mockCrucigrama = {
+                {"A", false},
+                {"B", true},
+        };
+        crucigrama.setCurrentCrucigrama(mockCrucigrama);
+
+        // Agregar mockTextField1 al mapa de posiciones
+        crucigrama.getTextFieldPositions().put(mockTextField1, new int[]{0, 0});
+
+        // Cambiar la respuesta esperada para simular una respuesta incorrecta
+        mockCrucigrama[0][0] = "C";
+
+        // Llamar al método verificarRespuestas()
+        crucigrama.verificarRespuestas();
+
+        // Verificar que el estilo de mockTextField1 sea red
+        verify(mockTextField1).setStyle("-fx-background-color: red;");
+
+        // Verificar que se muestra una alerta de respuestas incorrectas
+        ArgumentCaptor<String> argument = ArgumentCaptor.forClass(String.class);
+        verify(crucigrama).showAlert(argument.capture());
+        assertTrue(argument.getValue().contains("Algunas respuestas son incorrectas. Inténtalo de nuevo."));
+    }
+}
